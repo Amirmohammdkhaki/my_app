@@ -1,23 +1,147 @@
 <!doctype html>
-<html lang="en">
-  <head>
+<html lang="fa" dir="rtl">
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{% block page_title %}My Site{% endblock %}</title>
+    <title>{% block page_title %}گلدمن - سایت طلایی{% endblock %}</title>
     
     <!-- Bootstrap 4 CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     
+    <!-- Font Awesome 5 برای آیکون‌ها -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
     
-  </head>
-  <body>
-    {% block content %}{% endblock %}
+    <!-- فونت فارسی وزیرمتن -->
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- فایل CSS جداگانه -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/goldman.css' %}">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- ذرات شناور پس‌زمینه -->
+    <div class="floating-particles">
+        <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
+        <div class="particle" style="left: 30%; animation-delay: 4s;"></div>
+        <div class="particle" style="left: 40%; animation-delay: 6s;"></div>
+        <div class="particle" style="left: 50%; animation-delay: 8s;"></div>
+        <div class="particle" style="left: 60%; animation-delay: 10s;"></div>
+        <div class="particle" style="left: 70%; animation-delay: 12s;"></div>
+        <div class="particle" style="left: 80%; animation-delay: 14s;"></div>
+        <div class="particle" style="left: 90%; animation-delay: 16s;"></div>
+    </div>
 
-    <!-- Bootstrap 4 JS و dependencies -->
+    <!-- نوار ناوبری گلدمن -->
+    <nav class="navbar navbar-expand-lg glass-navbar" id="mainNavbar">
+        <div class="container">
+            <!-- لوگو و نام سایت -->
+            <a class="goldman-logo" href="/">
+                <i class="fas fa-crown gold-icon"></i>
+                <span class="brand-text" id="brandText">گلدمن</span>
+            </a>
+            
+            <!-- دکمه همبرگری برای موبایل -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarGoldman" 
+                    aria-controls="navbarGoldman" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <!-- منوها -->
+            <div class="collapse navbar-collapse" id="navbarGoldman">
+                <ul class="navbar-nav mx-auto">
+                    <!-- خانه -->
+                    <li class="nav-item {% if request.path == '/' %}active{% endif %}">
+                        <a class="nav-link glass-link" href="/">
+                            <i class="fas fa-home"></i>
+                            <span>خانه</span>
+                        </a>
+                    </li>
+                    
+                    <!-- درباره ما -->
+                    <li class="nav-item {% if request.path == '/about/' %}active{% endif %}">
+                        <a class="nav-link glass-link" href="/about/">
+                            <i class="fas fa-info-circle"></i>
+                            <span>درباره ما</span>
+                        </a>
+                    </li>
+                    
+                    <!-- تماس با ما -->
+                    <li class="nav-item {% if request.path == '/contact/' %}active{% endif %}">
+                        <a class="nav-link glass-link" href="/contact/">
+                            <i class="fas fa-phone-alt"></i>
+                            <span>تماس با ما</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <!-- دکمه‌های حساب کاربری - سمت چپ با سایز کوچک -->
+                <div class="navbar-nav auth-buttons">
+                    {% if user.is_authenticated %}
+                        <!-- اگر کاربر وارد شده بود -->
+                        <a class="nav-link glass-link profile-link" href="/accounts/profile/">
+                            <i class="fas fa-user"></i>
+                            <span>{{ user.username|truncatechars:8 }}</span>
+                        </a>
+                        <a class="nav-link glass-link login-btn" href="/accounts/logout/">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>خروج</span>
+                        </a>
+                    {% else %}
+                        <!-- ایجاد حساب - سایز کوچک -->
+                        <a class="nav-link glass-link signup-btn" href="/accounts/signup/">
+                            <i class="fas fa-user-plus"></i>
+                            <span>ایجاد حساب</span>
+                        </a>
+                        
+                        <!-- ورود - سایز کوچک -->
+                        <a class="nav-link glass-link login-btn" href="/accounts/login/">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span>ورود</span>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- محتوای اصلی صفحه -->
+    <main class="container mt-5 pt-4">
+        {% if messages %}
+            <!-- نمایش پیام‌ها -->
+            <div class="row">
+                <div class="col-md-12">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        {% block content %}
+        <!-- محتوای پیش‌فرض -->
+        <div class="content-card text-center">
+            <h1 class="mb-4 animate-float">به گلدمن خوش آمدید</h1>
+            <p class="lead">سایت طلایی شما با طراحی مدرن و لوکس</p>
+        </div>
+        {% endblock %}
+    </main>
+
+    <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
+    <!-- فایل JavaScript جداگانه -->
+    <script src="{% static 'js/goldman.js' %}"></script>
     
-  </body>
+    {% block extra_js %}{% endblock %}
+</body>
 </html>

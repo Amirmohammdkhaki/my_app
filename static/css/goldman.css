@@ -1,0 +1,1216 @@
+/* ============================================================================
+   گلدمن - استایل شیت اصلی
+   Goldman - Main Stylesheet
+   Version: 2.0.2
+   Designed for: پروژه واقعی با طراحی لوکس
+   ============================================================================ */
+
+/* ============================================================================
+   TABLE OF CONTENTS
+   ============================================================================
+   
+   01. CSS Variables & Root Settings
+   02. Base Styles & Resets
+   03. Typography
+   04. Background Effects & Animations
+   05. Glass Navbar - Core Styles
+   06. Goldman Logo Styles
+   07. Navigation Links
+   08. Authentication Buttons - سایز کوچک
+   09. Button Hover Effects
+   10. Button Active States
+   11. Button Focus States
+   12. Button Loading States
+   13. Button Ripple Effects
+   14. Button Glow Effects
+   15. Button Shadow Effects
+   16. Button Border Animations
+   17. Button Icon Animations
+   18. Mobile Navigation
+   19. Content Cards
+   20. Alert Messages
+   21. Scrollbar Styling
+   22. Media Queries
+   23. Keyframe Animations
+   24. Utility Classes
+   
+   ============================================================================ */
+
+/* ===== 01. CSS Variables & Root Settings ===== */
+:root {
+    /* Color Palette - آبی کم رنگ */
+    --primary-light: #e6f3ff;
+    --primary-soft: #b8d9f0;
+    --primary-main: #7fb4d9;
+    --primary-medium: #5f9bc0;
+    --primary-dark: #2c5282;
+    --primary-deep: #1a3650;
+    
+    /* Accent Colors */
+    --gold-light: #f5e6b8;
+    --gold-main: #c9a227;
+    --gold-dark: #8b691f;
+    
+    /* Neutral Colors */
+    --white: #ffffff;
+    --white-soft: #f8faff;
+    --gray-light: #eef2f6;
+    --gray-soft: #d9e2e9;
+    --gray-medium: #a0b8cc;
+    --gray-dark: #4a5568;
+    --black-soft: #2d3748;
+    
+    /* Glass Effects */
+    --glass-bg: rgba(173, 216, 230, 0.65);
+    --glass-bg-scrolled: rgba(173, 216, 230, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.5);
+    --glass-shadow: rgba(173, 216, 230, 0.3);
+    --glass-blur: blur(12px);
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.02);
+    --shadow-md: 0 4px 16px rgba(44, 82, 130, 0.08);
+    --shadow-lg: 0 8px 32px rgba(44, 82, 130, 0.12);
+    --shadow-xl: 0 16px 48px rgba(44, 82, 130, 0.16);
+    --shadow-inner: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    
+    /* Transitions */
+    --transition-fast: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --transition-base: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    --transition-slow: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    
+    /* Border Radius */
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-xl: 32px;
+    --radius-full: 40px;
+    --radius-circle: 50%;
+    
+    /* Spacing */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 12px;
+    --space-lg: 16px;
+    --space-xl: 20px;
+    --space-2xl: 24px;
+    --space-3xl: 32px;
+}
+
+/* ===== 02. Base Styles & Resets ===== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: 'Vazirmatn', sans-serif;
+    background: linear-gradient(
+        145deg,
+        var(--primary-light) 0%,
+        var(--white-soft) 50%,
+        var(--primary-light) 100%
+    );
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 90px;
+    direction: rtl;
+    position: relative;
+    overflow-x: hidden;
+    color: var(--primary-deep);
+    line-height: 1.6;
+}
+
+/* ===== 03. Typography ===== */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--primary-deep);
+}
+
+h1 {
+    font-size: 2.8rem;
+    letter-spacing: -0.02em;
+}
+
+h2 {
+    font-size: 2.2rem;
+}
+
+h3 {
+    font-size: 1.8rem;
+}
+
+p {
+    font-size: 1rem;
+    color: var(--gray-dark);
+}
+
+.lead {
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--primary-medium);
+}
+
+/* ===== 04. Background Effects & Animations ===== */
+
+/* افکت نوری متحرک پس‌زمینه */
+body::before {
+    content: '';
+    position: fixed;
+    inset: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle at 30% 50%,
+        rgba(255, 255, 255, 0.4) 0%,
+        transparent 50%
+    );
+    animation: light-drift 25s ease-in-out infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMzAgMTBhMjAgMjAgMCAwIDEgMjAgMjAgMjAgMjAgMCAwIDEtNDAgMCAyMCAyMCAwIDAgMSAyMC0yMHoiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wMykiLz48L3N2Zz4=');
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* ذرات شناور */
+.floating-particles {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-circle);
+    animation: float-particle 15s infinite linear;
+}
+
+/* ===== 05. Glass Navbar - Core Styles ===== */
+.glass-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    
+    /* Glass Effect */
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    
+    /* Border */
+    border-bottom: 1px solid var(--glass-border);
+    
+    /* Shadows */
+    box-shadow: 
+        var(--shadow-md),
+        var(--shadow-inner),
+        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    
+    /* Spacing & Layout */
+    padding: 16px 0;
+    
+    /* Transitions */
+    transition: all var(--transition-base);
+}
+
+.glass-navbar.scrolled {
+    background: var(--glass-bg-scrolled);
+    backdrop-filter: blur(15px);
+    box-shadow: var(--shadow-lg), var(--shadow-inner);
+    padding: 12px 0;
+}
+
+.glass-navbar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.5),
+        transparent
+    );
+}
+
+/* ===== 06. Goldman Logo Styles ===== */
+.goldman-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none !important;
+    position: relative;
+    padding: 4px 0;
+    margin-left: auto; /* فشار به سمت راست (چپ در rtl) */
+}
+
+.goldman-logo::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle at center,
+        rgba(201, 162, 39, 0.1),
+        transparent 70%
+    );
+    opacity: 0;
+    transition: opacity var(--transition-base);
+    border-radius: var(--radius-full);
+}
+
+.goldman-logo:hover::before {
+    opacity: 1;
+}
+
+.gold-icon {
+    color: var(--gold-main);
+    font-size: 34px;
+    filter: drop-shadow(0 2px 10px rgba(201, 162, 39, 0.3));
+    transition: all var(--transition-fast);
+    animation: gentle-float 3s ease-in-out infinite;
+}
+
+.brand-text {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    background: linear-gradient(
+        135deg,
+        var(--primary-deep) 0%,
+        var(--primary-dark) 50%,
+        var(--primary-deep) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: var(--primary-deep);
+    text-shadow: 0 2px 5px rgba(10, 42, 68, 0.1);
+    position: relative;
+}
+
+.brand-text::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold-main), transparent);
+    transition: width var(--transition-base);
+}
+
+.goldman-logo:hover .brand-text::after {
+    width: 100%;
+}
+
+/* ===== 07. Navigation Links ===== */
+.navbar-nav {
+    gap: 4px;
+}
+
+.glass-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 22px;
+    margin: 0 2px;
+    color: var(--primary-deep) !important;
+    border-radius: var(--radius-full);
+    transition: all var(--transition-base);
+    font-weight: 500;
+    font-size: 15px;
+    text-decoration: none !important;
+    position: relative;
+    overflow: hidden;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.glass-link i {
+    font-size: 16px;
+    color: var(--primary-dark);
+    transition: all var(--transition-fast);
+}
+
+/* ===== 08. Authentication Buttons - سایز کوچک ===== */
+
+/* کانتینر دکمه‌های احراز هویت */
+.auth-buttons {
+    display: flex;
+    gap: 8px; /* کاهش فاصله بین دکمه‌ها */
+    margin-right: 0;
+    position: relative;
+}
+
+.auth-buttons::before {
+    content: '';
+    position: absolute;
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 24px; /* کاهش ارتفاع خط جداکننده */
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(44, 82, 130, 0.2),
+        transparent
+    );
+}
+
+/* دکمه ثبت‌نام (ایجاد حساب) - سایز کوچک */
+.signup-btn {
+    background: linear-gradient(
+        145deg,
+        var(--primary-dark),
+        var(--primary-deep)
+    );
+    color: var(--white) !important;
+    padding: 6px 16px !important; /* پدینگ کوچک */
+    border-radius: var(--radius-full);
+    box-shadow: 
+        0 4px 12px rgba(44, 82, 130, 0.25),
+        0 2px 4px rgba(0, 0, 0, 0.05),
+        inset 0 1px 1px rgba(255, 255, 255, 0.3);
+    position: relative;
+    isolation: isolate;
+    border: none;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    min-width: 90px; /* حداقل عرض کمتر */
+    justify-content: center;
+    font-size: 13px; /* فونت کوچکتر */
+}
+
+.signup-btn i {
+    color: var(--white) !important;
+    font-size: 13px; /* آیکون کوچکتر */
+}
+
+/* دکمه ورود - سایز کوچک */
+.login-btn {
+    background: rgba(255, 255, 255, 0.6);
+    color: var(--primary-deep) !important;
+    border: 1.5px solid rgba(44, 82, 130, 0.15);
+    padding: 6px 16px !important; /* پدینگ کوچک */
+    border-radius: var(--radius-full);
+    backdrop-filter: blur(4px);
+    box-shadow: 
+        0 2px 8px rgba(0, 0, 0, 0.02),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    transition: all var(--transition-base);
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    min-width: 80px; /* حداقل عرض کمتر */
+    justify-content: center;
+    font-size: 13px; /* فونت کوچکتر */
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+}
+
+.login-btn i {
+    color: var(--primary-dark) !important;
+    font-size: 13px; /* آیکون کوچکتر */
+}
+
+/* پروفایل کاربر - سایز کوچک */
+.profile-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 16px !important;
+    background: rgba(44, 82, 130, 0.05) !important;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(44, 82, 130, 0.1) !important;
+}
+
+.profile-link i {
+    font-size: 14px !important;
+}
+
+.profile-link span {
+    font-size: 13px;
+    font-weight: 500;
+    max-width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* لایه درخشان دکمه ثبت‌نام */
+.signup-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+    z-index: -1;
+    border-radius: inherit;
+}
+
+.signup-btn::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.1),
+        rgba(44, 82, 130, 0.3)
+    );
+    border-radius: inherit;
+    z-index: -2;
+    opacity: 0;
+    transition: opacity var(--transition-base);
+}
+
+.login-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+    );
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+    z-index: -1;
+}
+
+/* ===== 09. Button Hover Effects ===== */
+
+.signup-btn:hover {
+    background: linear-gradient(
+        145deg,
+        var(--primary-medium),
+        var(--primary-dark)
+    );
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 
+        0 6px 18px rgba(44, 82, 130, 0.35),
+        0 3px 8px rgba(0, 0, 0, 0.08),
+        inset 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.signup-btn:hover::before {
+    transform: translateX(100%);
+}
+
+.signup-btn:hover::after {
+    opacity: 1;
+    animation: pulse-glow 1.5s infinite;
+}
+
+.signup-btn:hover i {
+    animation: icon-shake 0.5s ease;
+}
+
+.login-btn:hover {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: var(--primary-dark);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 
+        0 5px 15px rgba(44, 82, 130, 0.15),
+        0 2px 6px rgba(0, 0, 0, 0.05),
+        inset 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.login-btn:hover::before {
+    transform: translateX(100%);
+}
+
+.login-btn:hover i {
+    animation: icon-shake 0.5s ease;
+    color: var(--primary-deep) !important;
+}
+
+.profile-link:hover {
+    background: rgba(44, 82, 130, 0.1) !important;
+    border-color: rgba(44, 82, 130, 0.2) !important;
+    transform: translateY(-2px);
+}
+
+/* ===== 10. Button Active States ===== */
+
+.signup-btn:active,
+.login-btn:active,
+.profile-link:active {
+    transform: translateY(-1px) scale(0.98);
+    transition: transform 0.1s ease;
+}
+
+.signup-btn:active {
+    box-shadow: 
+        0 2px 6px rgba(44, 82, 130, 0.3),
+        inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.login-btn:active {
+    box-shadow: 
+        0 2px 6px rgba(44, 82, 130, 0.1),
+        inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* ===== 11. Button Focus States ===== */
+
+.signup-btn:focus-visible,
+.login-btn:focus-visible,
+.profile-link:focus-visible {
+    outline: none;
+    box-shadow: 
+        0 0 0 3px rgba(44, 82, 130, 0.3),
+        0 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+/* ===== 12. Button Loading States ===== */
+
+.signup-btn.loading,
+.login-btn.loading,
+.profile-link.loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.signup-btn.loading span,
+.login-btn.loading span,
+.profile-link.loading span {
+    opacity: 0;
+}
+
+.signup-btn.loading::after,
+.login-btn.loading::after,
+.profile-link.loading::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: var(--radius-circle);
+    animation: button-loading 0.6s linear infinite;
+}
+
+/* ===== 13. Button Ripple Effects ===== */
+
+.ripple-effect {
+    position: absolute;
+    border-radius: var(--radius-circle);
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(0);
+    animation: ripple-animation 0.6s ease-out;
+    pointer-events: none;
+}
+
+/* ===== 14. Button Glow Effects ===== */
+
+@keyframes button-glow {
+    0%, 100% {
+        box-shadow: 
+            0 0 5px rgba(44, 82, 130, 0.2),
+            0 0 10px rgba(44, 82, 130, 0.1);
+    }
+    50% {
+        box-shadow: 
+            0 0 12px rgba(44, 82, 130, 0.35),
+            0 0 20px rgba(44, 82, 130, 0.18);
+    }
+}
+
+.signup-btn {
+    animation: button-glow 3s infinite;
+}
+
+/* ===== 15. Button Shadow Effects ===== */
+
+.signup-btn,
+.login-btn,
+.profile-link {
+    transition: box-shadow var(--transition-base), transform var(--transition-fast);
+}
+
+.signup-btn {
+    box-shadow: 
+        0 4px 12px rgba(44, 82, 130, 0.25),
+        0 2px 4px rgba(0, 0, 0, 0.05),
+        inset 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+.login-btn {
+    box-shadow: 
+        0 2px 6px rgba(0, 0, 0, 0.02),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* ===== 16. Button Border Animations ===== */
+
+.login-btn {
+    position: relative;
+}
+
+.login-btn::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(
+        145deg,
+        var(--primary-light),
+        var(--primary-soft)
+    );
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity var(--transition-base);
+}
+
+.login-btn:hover::after {
+    opacity: 1;
+}
+
+/* ===== 17. Button Icon Animations ===== */
+
+@keyframes icon-shake {
+    0%, 100% { transform: rotate(0); }
+    25% { transform: rotate(5deg); }
+    75% { transform: rotate(-5deg); }
+}
+
+@keyframes icon-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.signup-btn:hover i,
+.login-btn:hover i,
+.profile-link:hover i {
+    animation: icon-pulse 0.5s ease infinite;
+}
+
+/* ===== 18. Mobile Navigation ===== */
+
+@media (max-width: 991.98px) {
+    body {
+        padding-top: 80px;
+    }
+    
+    .glass-navbar {
+        padding: 12px 0;
+    }
+    
+    .navbar-collapse {
+        background: rgba(173, 216, 230, 0.95);
+        backdrop-filter: blur(15px);
+        border-radius: var(--radius-lg);
+        padding: var(--space-xl);
+        margin-top: var(--space-md);
+        border: 1px solid var(--glass-border);
+        box-shadow: var(--shadow-lg);
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+    
+    /* تغییر position دکمه‌ها در موبایل */
+    .auth-buttons {
+        flex-direction: column;
+        margin-top: var(--space-lg);
+        gap: var(--space-sm);
+        width: 100%;
+    }
+    
+    .auth-buttons::before {
+        display: none;
+    }
+    
+    .signup-btn,
+    .login-btn,
+    .profile-link {
+        width: 100%;
+        min-width: 100%;
+        margin: 0;
+        padding: 8px 16px !important;
+        font-size: 14px;
+        justify-content: center;
+    }
+    
+    .glass-link {
+        margin: 6px 0;
+        justify-content: flex-start;
+        padding: 12px 18px;
+        background: rgba(255, 255, 255, 0.15);
+        width: 100%;
+    }
+    
+    .navbar-toggler {
+        background: rgba(44, 82, 130, 0.1);
+        border: 1px solid rgba(44, 82, 130, 0.2);
+        padding: 8px 14px;
+        border-radius: var(--radius-full);
+        transition: all var(--transition-base);
+    }
+    
+    .navbar-toggler:hover {
+        background: rgba(44, 82, 130, 0.15);
+        transform: scale(0.95);
+    }
+    
+    .navbar-toggler:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(44, 82, 130, 0.2);
+    }
+    
+    .navbar-toggler i {
+        color: var(--primary-deep) !important;
+        font-size: 18px;
+    }
+}
+
+/* ===== 19. Content Cards ===== */
+.content-card {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--glass-border);
+    box-shadow: 
+        var(--shadow-xl),
+        0 0 0 1px rgba(255, 255, 255, 0.5);
+    color: var(--primary-deep);
+    padding: 3rem;
+    transition: all var(--transition-base);
+    animation: card-appear 0.6s ease-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.content-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(
+        90deg,
+        var(--gold-main),
+        var(--primary-dark),
+        var(--gold-main)
+    );
+}
+
+.content-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle at top right,
+        rgba(255, 255, 255, 0.3),
+        transparent 70%
+    );
+    pointer-events: none;
+}
+
+.content-card:hover {
+    box-shadow: var(--shadow-xl), 0 0 0 1px rgba(255, 255, 255, 0.8);
+    transform: translateY(-5px);
+}
+
+.content-card h1 {
+    color: var(--primary-deep);
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    font-size: 3rem;
+    text-shadow: 0 2px 5px rgba(255, 255, 255, 0.5);
+    background: linear-gradient(
+        135deg,
+        var(--primary-deep) 0%,
+        var(--primary-dark) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: var(--primary-deep);
+    position: relative;
+    display: inline-block;
+}
+
+.content-card .lead {
+    color: var(--primary-dark);
+    font-size: 1.4rem;
+    font-weight: 400;
+    opacity: 0.9;
+    letter-spacing: 0.3px;
+}
+
+/* ===== 20. Alert Messages ===== */
+.alert {
+    border-radius: var(--radius-md);
+    border: none;
+    box-shadow: var(--shadow-md);
+    font-size: 14px;
+    padding: 16px 22px;
+    animation: slide-down 0.4s ease;
+    backdrop-filter: blur(5px);
+    position: relative;
+    overflow: hidden;
+}
+
+.alert::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 4px;
+    background: currentColor;
+}
+
+.alert-success {
+    background: rgba(72, 187, 120, 0.1);
+    color: #22543d;
+    border-right: 4px solid #48bb78;
+}
+
+.alert-error {
+    background: rgba(245, 101, 101, 0.1);
+    color: #742a2a;
+    border-right: 4px solid #f56565;
+}
+
+.alert-info {
+    background: rgba(66, 153, 225, 0.1);
+    color: #2c5282;
+    border-right: 4px solid #4299e1;
+}
+
+.alert-warning {
+    background: rgba(237, 137, 54, 0.1);
+    color: #c05621;
+    border-right: 4px solid #ed8936;
+}
+
+.close {
+    opacity: 0.5;
+    transition: opacity var(--transition-fast);
+}
+
+.close:hover {
+    opacity: 1;
+}
+
+/* ===== 21. Scrollbar Styling ===== */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: linear-gradient(
+        to bottom,
+        var(--primary-light),
+        var(--white-soft)
+    );
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+        135deg,
+        var(--primary-dark),
+        var(--primary-deep)
+    );
+    border-radius: 10px;
+    border: 2px solid var(--glass-border);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(
+        135deg,
+        var(--primary-medium),
+        var(--primary-dark)
+    );
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+/* Firefox Scrollbar */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-dark) var(--primary-light);
+}
+
+/* ===== 22. Media Queries ===== */
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .container {
+        max-width: 95%;
+    }
+    
+    h1 {
+        font-size: 2.4rem;
+    }
+    
+    .content-card {
+        padding: 2.5rem;
+    }
+}
+
+/* Small Desktop */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .glass-link {
+        padding: 10px 18px;
+        font-size: 14px;
+    }
+    
+    .signup-btn,
+    .login-btn {
+        padding: 5px 14px !important;
+        min-width: 85px;
+        font-size: 12px;
+    }
+    
+    .profile-link {
+        padding: 5px 14px !important;
+    }
+}
+
+/* Large Desktop */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1320px;
+    }
+    
+    h1 {
+        font-size: 3.2rem;
+    }
+    
+    .glass-link {
+        padding: 14px 26px;
+        font-size: 16px;
+    }
+    
+    .signup-btn,
+    .login-btn {
+        padding: 7px 18px !important;
+        min-width: 95px;
+        font-size: 13px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .glass-navbar {
+        position: static;
+        background: white;
+        box-shadow: none;
+    }
+    
+    .auth-buttons,
+    .navbar-toggler {
+        display: none;
+    }
+}
+
+/* ===== 23. Keyframe Animations ===== */
+
+@keyframes light-drift {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    33% {
+        transform: translate(5%, 5%) rotate(120deg);
+    }
+    66% {
+        transform: translate(-5%, -5%) rotate(240deg);
+    }
+}
+
+@keyframes float-particle {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.3;
+    }
+    90% {
+        opacity: 0.3;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes gentle-float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-3px);
+    }
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes button-loading {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes ripple-animation {
+    0% {
+        transform: scale(0);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+@keyframes card-appear {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes slide-down {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes border-flow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* ===== 24. Utility Classes ===== */
+
+/* Text Utilities */
+.text-gradient {
+    background: linear-gradient(
+        135deg,
+        var(--primary-deep),
+        var(--primary-dark)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: var(--primary-deep);
+}
+
+.text-gold {
+    color: var(--gold-main);
+}
+
+/* Shadow Utilities */
+.shadow-hover {
+    transition: box-shadow var(--transition-base);
+}
+
+.shadow-hover:hover {
+    box-shadow: var(--shadow-lg);
+}
+
+/* Animation Utilities */
+.animate-float {
+    animation: gentle-float 3s ease-in-out infinite;
+}
+
+.animate-pulse {
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Glass Utilities */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Spacing Utilities */
+.mt-auto {
+    margin-top: auto;
+}
+
+.mb-auto {
+    margin-bottom: auto;
+}
+
+/* Flex Utilities */
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
